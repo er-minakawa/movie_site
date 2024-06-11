@@ -1,14 +1,51 @@
 @import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
 h1{
+
     font-family: 'Itim', cursive;
     font-weight: bold 10;
-    background-color: white;
-    
+    padding: 0 45px;
+    border-bottom: solid 2px mediumturquoise;
+}
+h1:first-letter{
+    font-size: 1.8rem;
+    color: mediumturquoise;
+}
+h1:before {
+    content: "";
+    background-color: #FFEB3B;
+    border-radius: 50%;
+    opacity: 1;
+    width: 35px;
+    height: 35px;
+    left: 5px;
+    top: 0px;
+    position: absolute;
+  }
+h1:after{
+    content: "";
+    background-color: salmon;
+    border-radius: 50%;
+    opacity: 0.3;
+    width: 20px;
+    height: 20px;
+    left: 25px;
+    top:15px;
+    position: absolute;
+}
+.box3 {
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    color: #2c2c2f;
+    background: #cde4ff;/*背景色*/
+}
+.box3 p {
+    margin: 0; 
+    padding: 0;
 }
 
-body{
-    background-color:#c4a3bf ;
-}
+body{ 
+    background-color:#c4a3bf ; 
+} 
 a:hover{
     color: #f3eda8;
 }

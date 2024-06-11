@@ -22,18 +22,15 @@ $input = str_replace("\n", "_kaigyou_", $input);
 $input = str_replace("\r", "_kaigyou_", $input);
 
 
-
-
-
-
 //データベースへ接続
 try{
-    $dbh =new PDO($dsn,$id,$pass,$name,$birthday);
+    $dbh =new PDO($dsn,$id,$pass);
      if(isset($mode) && ($mode== "register")){
     // フォームからのデータがNULLでないことを確認する
     if (!empty($input) && !empty($input2) && !empty($name) && !empty($birthday)) {
         register();
         echo "登録完了しました。";
+        echo '<p><a href="index.html"> ログインに進む。</a></p>';
         } 
     }else {
        echo "";
@@ -44,7 +41,7 @@ try{
 }
 
 function register(){
-    global $dbh,$input,$input2;
+    global $dbh,$input,$input2,$name,$birthday;
     $sql =<<<sql
     insert into users (id,pass,namae,birthday)values(?,?,?,?);
 sql;

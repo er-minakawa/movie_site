@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>確認画面</title>
+</head>
+<body>
+    <h2>入力内容を確認してください</h2>
+    <p>映画ID: !id!</p>
+    <p>映画名: !movie!</p>
+    <p>公開日: !release_date!</p>
+    <p>公開終了日: !end_date!</p>
+    <p>上映時間: !time!</p>
+    <p>スクリーン: !screen!</p>
+    <p>ジャンル: !genru!</p>
+    <p>: 値段：!price!</p>
+    <form action="" method="get">
+        <input type="hidden" name="id" value="!id!">
+        <input type="hidden" name="movie" value="!movie!">
+        <input type="hidden" name="release_date" value="!release_date!">
+        <input type="hidden" name="end_date" value="!end_date!">
+        <input type="hidden" name="time" value="!time!">
+        <input type="hidden" name="screen" value="!screen!">
+        <input type="hidden" name="genru" value="!genru!">
+        <input type="hidden" name="price" value="!price!">
+        <input type="hidden" name="mode" value="register">
+        <button type="submit">登録</button>
+    </form>
+</body>
+</html>
