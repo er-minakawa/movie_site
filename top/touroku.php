@@ -1,6 +1,6 @@
 <?php
 //DB接続に必要な情報をまとめておきます
-$dsn ="mysql:host=localhost;dbname=movie;charset=utf8";
+$dsn ="mysql:host=localhost;dbname=movies;charset=utf8";
 $id="testuser";
 $pass="testpass";
 $input = $_GET["id"];
