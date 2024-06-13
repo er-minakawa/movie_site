@@ -5,24 +5,36 @@ $id = "testuser";
 $pass = "testpass";
 
 //テンプレートファイル
-$tmpl_input = "touroku.tmpl";
-$tmpl_update = "henkou.tmpl";
+$tmpl_input = "movie.tmpl";
 
-#改行
-$input = str_replace("\r\n", "_kaigyou_", $input);
-$input = str_replace("\n", "_kaigyou_", $input);
-$input = str_replace("\r", "_kaigyou_", $input);
+// #改行
+// $input = str_replace("\r\n", "_kaigyou_", $input);
+// $input = str_replace("\n", "_kaigyou_", $input);
+// $input = str_replace("\r", "_kaigyou_", $input);
+
 
 //表示
-parse_form();
+parse_form();//＄in配列にデータを入れる
 
 try {
     $dbh = new PDO($dsn, $id, $pass);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    parse_form(); // $in 配列の準備
+    $in = parse_form(); // $in 配列の準備
 
-    movie_search();
+    
+    if(isset($in) && $in['mode'] == 'register'){
+        register();
+        header('location:admin_page2.php');
+        exit();
+    }
+    if(isset($in) && $in['mode'] == 'edit'){
+        update();
+    }
+    if(isset($in) && $in['mode'] == 'delete'){
+        delete();
+    }
+    movie();
 } catch (PDOException $e) {
     die("PDO Error:" . $e->getMessage());
 }
@@ -34,8 +46,8 @@ function parse_form()
     global $in;
 
     $param = array();
-    if (isset($_GET) && is_array($_GET)) {
-        $param += $_GET;
+    if (isset($_POST) && is_array($_POST)) {
+        $param += $_POST;
     }
     if (isset($_POST) && is_array($_POST)) {
         $param += $_POST;
@@ -53,29 +65,21 @@ function parse_form()
 
         $in[$key] = $val;
     }
+    // var_dump($in);
     return $in;
 }
 
 
 //登録
-function insert()
+function register()
 {
-    global $dbh;
-    global $in;
+    global $dbh, $in,$input, $movie, $release_date, $end_date, $time, $screen, $genru, $price,$flag;
+    $sql = <<<sql
+    insert into users (id,movie,release_date,end_date,time,screen,genru,price,flag)values(?,?,?,?,?,?,?,?,?);
+sql;
 
-    if (isset($mode) && ($mode == "register")) {
-        // フォームからのデータがNULLでないことを確認する
-        if (!empty($input) && !empty($movie) && !empty($release_date) && !empty($end_date) && !empty($time) && !empty($screen) && !empty($genru) && !empty($price)) {
-            insert();
-            echo "登録完了しました。";
-            echo '<p><a href="admin_first.html"> 画面を戻る。</a></p>';
-        }
-    } else {
-        echo "";
-    }
-    $sql = "INSERT INTO users (id, movie, release_date, end_date, time, screen, genru, price) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $flag = 1;
     $stmt = $dbh->prepare($sql);
-
     $stmt->bindParam(1, $in["id"]);
     $stmt->bindParam(2, $in["movie"]);
     $stmt->bindParam(3, $in["release_date"]);
@@ -84,13 +88,22 @@ function insert()
     $stmt->bindParam(6, $in["screen"]);
     $stmt->bindParam(7, $in["genru"]);
     $stmt->bindParam(8, $in["price"]);
+    $stmt->bindParam(9, $flag);
+
+
+
 
     $stmt->execute();
+    $error = $stmt->errorInfo();
+    if ($error[0] !== '00000') {
+        echo "エラーが発生しました：" . $error[2];
+    }
 }
 
 //編集
 function update()
 {
+
     global $dbh;
     global $in;
 
@@ -115,7 +128,7 @@ function delete()
     global $dbh;
     global $in;
 
-    $sql = "UPDATE users SET flag = 1 WHERE id = ?";
+    $sql = "DELETE FROM users WHERE id = ?";
     $stmt = $dbh->prepare($sql);
 
     $stmt->bindParam(1, $in["id"]);
@@ -123,7 +136,7 @@ function delete()
     $stmt->execute();
 }
 
-function movie_search()
+function movie()
 {
     global $dbh;
     global $tmpl_input;
@@ -156,7 +169,8 @@ function movie_search()
 
         $block .= $data;
     }
-
-    echo $block;
+    $data = file_get_contents("insert.tmpl");
+    $movies = str_replace("!movies!", $block, $data);
+    echo $movies;
 }
 ?>

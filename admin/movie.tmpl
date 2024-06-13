@@ -1,0 +1,60 @@
+<table border="1">
+    <tr>
+        <td>id</td>
+        <td>!id!</td>
+        <td>映画名</td>
+        <td>!movie!</td>
+    </tr>
+    <tr>
+        <td>公開日</td>
+        <td>!release_date!</td>
+        <td>公開終了日</td>
+        <td>!end_date!</td>
+    </tr>
+    <tr>
+        <td>上映時間</td>
+        <td>!time!</td>
+        <td>スクリーン</td>
+        <td>!screen!</td>
+    </tr>
+    <tr>
+        <td>ジャンル</td>
+        <td>!genru!</td>
+        <td>値段</td>
+        <td>!price!</td>
+    </tr>
+    <input type="hidden" name="id" value="!id!">
+    <input type="hidden" name="movie" value="!movie!">
+    <input type="hidden" name="release_date" value="!release_date!">
+    <input type="hidden" name="end_date" value="!end_date!">
+    <input type="hidden" name="time" value="!time!">
+    <input type="hidden" name="screen" value="!screen!">
+    <input type="hidden" name="genru" value="!genru!">
+    <input type="hidden" name="price" value="!price!">
+ 
+</table>
+</form>
+<form action = "edit.php" method ="post">
+    <input type ="submit" value = "編集">
+    <input type="hidden" name="id" value="!id!">
+    <input type="hidden" name="movie" value="!movie!">
+    <input type="hidden" name="release_date" value="!release_date!">
+    <input type="hidden" name="end_date" value="!end_date!">
+    <input type="hidden" name="time" value="!time!">
+    <input type="hidden" name="screen" value="!screen!">
+    <input type="hidden" name="genru" value="!genru!">
+    <input type="hidden" name="price" value="!price!">
+    <input type="hidden" name="mode" value="edit">
+</form>
+<form action ="delete.php" method ="post">
+    <input type ="submit" value = "削除">
+    <input type="hidden" name="id" value="!id!">
+    <input type="hidden" name="movie" value="!movie!">
+    <input type="hidden" name="release_date" value="!release_date!">
+    <input type="hidden" name="end_date" value="!end_date!">
+    <input type="hidden" name="time" value="!time!">
+    <input type="hidden" name="screen" value="!screen!">
+    <input type="hidden" name="genru" value="!genru!">
+    <input type="hidden" name="price" value="!price!">
+    <input type="hidden" name="mode" value="delete">
+</form>
