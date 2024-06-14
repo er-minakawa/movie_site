@@ -32,7 +32,7 @@ try {
     if(isset($input1) && isset($input2)){
         if($input1 === $admin_id && $input2 === $admin_pass){
             // 管理者用のページにリダイレクト
-            header("Location:/映画サイト/admin/admin_first.html");
+            header("Location:../admin/admin_first.html");
             exit;
         } else {
             // 通常のユーザーとしてログイン処理を行う

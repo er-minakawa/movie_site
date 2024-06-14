@@ -1,0 +1,79 @@
+h1{
+    border-bottom: dashed 4px tomato;
+}
+h1:first-letter {
+    font-size: 1.5em;
+    color: tomato;
+}
+body{
+    background-color:#FFFFF0;
+}
+.id,.id2{
+    width: 50px;
+    text-align: center;
+}
+.movie,.movie2{
+    width: 160px;
+    text-align: center;
+}
+.release_date,.release_date2{
+    width: 160px;
+    text-align: center;
+}
+.end_date,.end_date2{
+    width: 160px;
+    text-align: center;
+}
+.time,.time2{
+    width: 200px;
+    text-align: center;
+}
+.screen,.screen2{
+    width: 90px;
+    text-align: center;
+}
+.genru,.genru2{
+    width: 100px;
+    text-align: center;
+}
+.price,.price2{
+    width: 90px;
+    text-align: center;
+}
+.id2,.release_date2,.time2,.genru2{
+    background-color: #FFB6C1;
+}
+.movie2,.end_date2,.screen2,.price2{
+    background-color: #F08080;
+}
+.id,.release_date,.time,.genru,.movie,.end_date,.screen,.price{
+    background-color: white;
+}
+.delete{
+    display: inline-block;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    background: #990000;
+    color: #FFF;
+    border-radius: 4px;
+    box-shadow: 0px 0px 0px 5px #990000;
+    border: dashed 1px #FFF;
+  }
+  
+.delete {
+    border: dotted 1px #FFF;
+}
+.edit{
+    display: inline-block;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    background:#66CC66;
+    color: #FFF;
+    border-radius: 4px;
+    box-shadow: 0px 0px 0px 5px #66CC66;
+    border: dashed 1px #FFF;
+  }
+  
+.edit {
+    border: dotted 1px #FFF;
+}

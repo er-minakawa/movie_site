@@ -1,0 +1,15 @@
+h1{
+    font-family: M PLUS 1p;
+    font-weight: bold 10;
+    padding: 0 45px;
+}
+h1:first-letter {
+    font-size: 1.5em;
+    color: #5507ff;
+}
+body{
+    background-color:#FFFFF0;
+}
+a:hover{
+    color: #5507FF;
+}
