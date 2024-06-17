@@ -13,3 +13,6 @@ body{
 a:hover{
     color: #5507FF;
 }
+a{
+    font-size: 150%;
+}

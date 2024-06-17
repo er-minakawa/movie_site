@@ -38,7 +38,7 @@ try {
             // 通常のユーザーとしてログイン処理を行う
             if(isUser($dbh, $input1, $input2)){
                 // 通常のユーザーのページにリダイレクト
-                header("Location:../user/user_page.php");
+                header("Location:../user/user.html");
                 exit;
             } else {
                 // ログインが失敗した場合の処理

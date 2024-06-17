@@ -4,66 +4,93 @@ $dsn = "mysql:host=localhost;dbname=movies_admin;charset=utf8";
 $id = "testuser";
 $pass = "testpass";
 
-$input= [];
-if (isset($_POST)) {
-    $input += $_POST;
-}
-// $input =$_POST["id"];
-// $release_date =$_GET["release_date"];
-// $end_date =$_GET["end_date"];
-// $time =$_GET["time"];
-// $movie=$_GET["movie"];
-// $screen =$_GET["screen"];
-// $genru =$_GET["genru"];
-// $price =$_GET["price"];
-// $mode = $_GET["mode"];
+//テンプレートファイル
+$tmpl_input = "movie.tmpl";
 
-#utf-8に統一
-// $enc = mb_detect_encoding($input);
-// $input = mb_convert_encoding($input, "UTF-8", $enc);
+// #改行
+// $input = str_replace("\r\n", "_kaigyou_", $input);
+// $input = str_replace("\n", "_kaigyou_", $input);
+// $input = str_replace("\r", "_kaigyou_", $input);
 
-#クロスサイトスクリプティング対策
-// $input = htmlentities($input, ENT_QUOTES, "UTF-8");
 
-#改行
-$input = str_replace("\r\n", "_kaigyou_", $input);
-$input = str_replace("\n", "_kaigyou_", $input);
-$input = str_replace("\r", "_kaigyou_", $input);
+//表示
+parse_form();//＄in配列にデータを入れる
+
 try {
     $dbh = new PDO($dsn, $id, $pass);
-    if (isset($mode) && ($mode == "register")) {
-        // フォームからのデータがNULLでないことを確認する
-        if (!empty($input) && !empty($movie) && !empty($release_date) && !empty($end_date) && !empty($time) && !empty($screen) && !empty($genru) && !empty($price)) {
-            register();
-            echo "登録完了しました。";
-            echo '<p><a href="admin_page.html"> 画面を戻る。</a></p>';
-        }
-    } else {
-        echo "";
-    }
+    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    conf_form();
+    $in = parse_form(); // $in 配列の準備
+
+    
+    if(isset($in) && $in['mode'] == 'register'){
+        register();
+        header('location:admin_page2.php');
+        exit();
+    }
+    if(isset($in) && $in['mode'] == 'edit'){
+        update();
+    }
+    if(isset($in) && $in['mode'] == 'delete'){
+        delete();
+    }
+    movie();
 } catch (PDOException $e) {
-    echo "接続失敗…";
-    echo "エラー内容:" . $e->getMessage();
+    die("PDO Error:" . $e->getMessage());
 }
 
+
+//form受け取り
+function parse_form()
+{
+    global $in;
+
+    $param = array();
+    if (isset($_POST) && is_array($_POST)) {
+        $param += $_POST;
+    }
+    if (isset($_POST) && is_array($_POST)) {
+        $param += $_POST;
+    }
+
+    foreach ($param as $key => $val) {
+        if (is_array($val)) {
+            $val = array_shift($val);
+        }
+
+        $enc = mb_detect_encoding($val);
+        $val = mb_convert_encoding($val, "UTF-8", $enc);
+
+        $val = htmlentities($val, ENT_QUOTES, "UTF-8");
+
+        $in[$key] = $val;
+    }
+    // var_dump($in);
+    return $in;
+}
+
+
+//登録
 function register()
 {
-    global $dbh, $input, $movie, $release_date, $end_date, $time, $screen, $genru, $price;
+    global $dbh, $in,$input, $movie, $release_date, $end_date, $time, $screen, $genru, $price,$flag;
     $sql = <<<sql
-    insert into users (id,movie,release_date,end_date,time,screen,genru,price)values(?,?,?,?,?,?,?,?);
+    insert into users (id,movie,release_date,end_date,time,screen,genru,price,flag)values(?,?,?,?,?,?,?,?,?);
 sql;
 
+    $flag = 1;
     $stmt = $dbh->prepare($sql);
-    $stmt->bindParam(1, $input);
-    $stmt->bindParam(2, $movie);
-    $stmt->bindParam(3, $release_date);
-    $stmt->bindParam(4, $end_date);
-    $stmt->bindParam(5, $time);
-    $stmt->bindParam(6, $screen);
-    $stmt->bindParam(7, $genru);
-    $stmt->bindParam(8, $price);
+    $stmt->bindParam(1, $in["id"]);
+    $stmt->bindParam(2, $in["movie"]);
+    $stmt->bindParam(3, $in["release_date"]);
+    $stmt->bindParam(4, $in["end_date"]);
+    $stmt->bindParam(5, $in["time"]);
+    $stmt->bindParam(6, $in["screen"]);
+    $stmt->bindParam(7, $in["genru"]);
+    $stmt->bindParam(8, $in["price"]);
+    $stmt->bindParam(9, $flag);
+
+
 
 
     $stmt->execute();
@@ -72,71 +99,52 @@ sql;
         echo "エラーが発生しました：" . $error[2];
     }
 }
-# エラーチェック
-$error_notes = "";
-if (!isset($_POST["id"]) || empty($_POST["id"])) {
-    $error_notes .= "・id未入力です。<br>";
-}
-if (!isset($_POST["movie"]) || $_POST["movie"] === "") {
-    $error_notes .= "映画名が未入力です。<br>";
-}
-if (!isset($_POST["release_date"]) || $_POST["release_date"] === "") {
-    $error_notes .= "公開日が未入力です。<br>";
-}
-if (!isset($_POST["end_date"]) || $_POST["end_date"] === "") {
-    $error_notes .= "公開終了日が未入力です。<br>";
-}
-if (!isset($_POST["time"]) || $_POST["time"] === "") {
-    $error_notes .= "上映時間が未入力です。<br>";
-}
-if (!isset($_POST["screen"]) || $_POST["screen"] === "") {
-    $error_notes .= "スクリーンが未入力です。<br>";
-}
-if (!isset($_POST["genru"]) || $_POST["genru"] === "") {
-    $error_notes .= "ジャンルが未入力です。<br>";
-}
-if (!isset($_POST["price"]) || $_POST["price"] === "") {
-    $error_notes .= "priceが未入力です。<br>";
-}
 
-# エラーが存在する場合
-if ($error_notes !== "") {
-    error($error_notes);
-}
-
-function error($error_message)
+//編集
+function update()
 {
-    echo "<br>";
-    echo "<div style='color: red;'><strong>エラーが発生しました:</strong><br>" . $error_message . "</div>";
+
+    global $dbh;
+    global $in;
+
+    $sql = "UPDATE users SET movie = ?, release_date = ?, end_date = ?, time = ?, screen = ?, genru = ?, price = ? WHERE id = ?";
+    $stmt = $dbh->prepare($sql);
+
+    $stmt->bindParam(1, $in["movie"]);
+    $stmt->bindParam(2, $in["release_date"]);
+    $stmt->bindParam(3, $in["end_date"]);
+    $stmt->bindParam(4, $in["time"]);
+    $stmt->bindParam(5, $in["screen"]);
+    $stmt->bindParam(6, $in["genru"]);
+    $stmt->bindParam(7, $in["price"]);
+    $stmt->bindParam(8, $in["id"]);
+
+    $stmt->execute();
 }
 
-$getinfo = $_POST;
-
-
-//表示
-function conf_form()
+//削除
+function delete()
 {
     global $dbh;
-    //global $getinfo;
-    $sql = "select * from users";
+    global $in;
+
+    $sql = "DELETE FROM users WHERE id = ?";
+    $stmt = $dbh->prepare($sql);
+
+    $stmt->bindParam(1, $in["id"]);
+
+    $stmt->execute();
+}
+
+function movie()
+{
+    global $dbh;
+    global $tmpl_input;
+
+    $sql = "SELECT * FROM users";
     $stmt = $dbh->prepare($sql);
     $stmt->execute();
 
-
-      global $input;
-      global $movie;
-      global $release_date;
-      global $end_date;
-      global $time;
-      global $screen;
-      global $genru;
-      global $price;
-
-    #テンプレート読み込み
-    $conf = fopen("admin_page.tmpl", "r") or die("Unable to open file!");
-    $size = filesize("admin_page.tmpl");
-    $data = fread($conf, $size);
-    fclose($conf);
     $block = "";
 
     while ($row = $stmt->fetch()) {
@@ -149,9 +157,7 @@ function conf_form()
         $genru = $row['genru'];
         $price = $row['price'];
 
-
-
-        # 文字置き換え
+        $data = file_get_contents($tmpl_input);
         $data = str_replace("!id!", $input, $data);
         $data = str_replace("!movie!", $movie, $data);
         $data = str_replace("!release_date!", $release_date, $data);
@@ -163,56 +169,11 @@ function conf_form()
 
         $block .= $data;
     }
+    $data = file_get_contents("insert.tmpl");
+    $movies = str_replace("!movies!", $block, $data);
+    echo $movies;
+}
+function serch()
+{
 
-    // $fh_stock = fopen("admin_page.html", "r+");
-    // $fs_stock = filesize("admin_page.html");
-    // $top = fread($fh_stock, $fs_stock);
-    // fclose($fh_stock);
-
-    $top = str_replace("!block!", $block, $top);
-    echo $top;
-
-}
-
-    //登録
-function insert(){
-    global $input;
-    global $movie;
-        global $release_date;
-        global $end_date;
-        global $time;
-        global $screen;
-        global $genru;
-        global $price;
-# エラーチェック
-$error_notes = "";
-if (!isset($_POST["id"]) || empty($_POST["id"])) {
-    $error_notes .= "・id未入力です。<br>";
-}
-if (!isset($_POST["movie"]) || $_POST["movie"] === "") {
-    $error_notes .= "映画名が未入力です。<br>";
-}
-if (!isset($_POST["release_date"]) || $_POST["release_date"] === "") {
-    $error_notes .= "公開日が未入力です。<br>";
-}
-if (!isset($_POST["end_date"]) || $_POST["end_date"] === "") {
-    $error_notes .= "公開終了日が未入力です。<br>";
-}
-if (!isset($_POST["time"]) || $_POST["time"] === "") {
-    $error_notes .= "上映時間が未入力です。<br>";
-}
-if (!isset($_POST["screen"]) || $_POST["screen"] === "") {
-    $error_notes .= "スクリーンが未入力です。<br>";
-}
-if (!isset($_POST["genru"]) || $_POST["genru"] === "") {
-    $error_notes .= "ジャンルが未入力です。<br>";
-}
-if (!isset($_POST["price"]) || $_POST["price"] === "") {
-    $error_notes .= "priceが未入力です。<br>";
-}
-
-# エラーが存在する場合
-if ($error_notes !== "") {
-    error($error_notes);
-}
 }

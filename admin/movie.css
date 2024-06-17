@@ -77,3 +77,34 @@ body{
 .edit {
     border: dotted 1px #FFF;
 }
+/*フォーム全体を中央へ*/
+#form1{
+    display: flex;
+    justify-content: center; /*中央へ固定*/	
+    height:50px;/*高さ*/	
+  }
+  /*入力フォーム*/
+  #sbox1{
+    width: 200px;/*横幅*/
+    height: 35px;
+    padding:0 15px;/*プレースホルダーの位置調整*/
+    border-radius:4px 0 0 4px;/*左側の角を少し丸める*/		
+    background:#eee;/*検背景カラー*/
+    border:none;/*枠線を消す*/ 
+    outline:0;/*クリック時の青い枠線消す*/	
+  }
+  /*検索ボタン*/
+  #sbtn1{
+    width:70px;/*横幅*/ 
+    height: 35px;
+    border-radius:0 4px 4px 0;/*右側の角を少し丸める*/ 
+    background:tomato;/*背景カラー*/ 
+    border:none;/*枠線を消す*/ 
+    color:#fff;/*テキストカラー*/ 
+    font-size:16px;/*フォントサイズ指定*/ 
+    cursor: pointer;/*マウスを乗せると指差しポインターになる*/
+  }
+  /*検索ボタンマウスオーバー時*/
+  #sbtn1:hover {
+    background:pink ;/*背景カラー変更*/
+  }

@@ -6,8 +6,30 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="user_page.php">
-        <h2>予約画面</h2>
-    </form>
+    <h1>予約画面</h1>
+    <form action="user_page.php" method="post">
+        <label for="name">名前</label><br>
+        <input type="text" id="name" name="name"><br>
+        <br>
+        <label for="movie">映画名</label>
+        <select name="movie" id="movie">
+            <option selected> ちいかわの大冒険 </option>
+            <option>バナナ大戦争</option>
+            <option>AI</option>
+            <option>リンゴの木の実</option>
+            <option>スーパーmen</option>
+        </select><br>
+        <br>
+        <label for="time">上映時間：</label>
+        <select name="time" id="time">
+            <option selected>12:00</option>
+            <option>15:00</option>
+            <option>17:00</option>
+            <option>19:00</option>
+            <option>21:00</option>
+        </select><br>
+        <input type="submit" name="reservation" value="予約">
+        <input type="hidden" name="mode" value="reservation">
+        </form>
 </body>
 </html>
