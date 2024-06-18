@@ -7,22 +7,32 @@
     <link rel="stylesheet" href="touroku.css">
 </head>
 <body>
+    <div class="container">
     <h1>新規登録</h1>
     <form action="touroku.php" method="get">
-    <table>
-        <tr>
-            <p>氏名<br>
-             <input type="text" name="namae" value=""></p>
-            <p>誕生日<br>
-             <input type="date" name="birthday" value=""></p>
-            <p>id<br>
-                <input type="text" name="id" value=""></p>
-            <p>pass<br>
-                <input type="password" name="pass" value=""></p>
-            <p><input type="submit" name="touroku" value="登録"></p>
+        <div class="form-group">
+            <label for="username">氏名<br>
+             <input type="text" name="namae" value=""></label>
+        </div>
+        <div class="form-group">
+             <label for="birthday">誕生日<br>
+             <input type="date" name="birthday" value=""></label>
+        </div>
+        <div class="form-group">
+            <label for="id">id<br>
+                <input type="text" name="id" value=""></label>
+        </div>
+        <div class="form-group">
+            <label for="pass">pass<br>
+            <input type="password" name="pass" value=""></label>
+        </div>
+    
+        <div class="sub_contr">
+            <input class="sub_btn" type="submit" name="touroku" value="登録">
             <input type="hidden" name="mode" value="register">
-        </tr>
-    </table>
-</form>
+        </div>
+    
+    </form>
+    </div>
 </body>
 </html>

@@ -7,32 +7,24 @@
     <link rel="stylesheet" href="admin_first.css">
 </head>
 <body>
+    <div class="container"></div>
     <h1>管理者画面へようこそ</h1>
-    <div class="box3">
-    <form action="" method="post">
-        <table>
-            <tr>
-                <td><a href="admin_page.html" id="add">登録</a></td>
-            </tr>
-        </table>
-        <table>
-            <tr>
-                <td><a href="admin_page2.php">映画一覧</a></td>
-            </tr>
-        </table>
-        <table>
-            <tr>
-                <td><a href="admin_reservation.php">予約一覧</a></td>
-            </tr>
-        </table>
-        <table>
-            <tr>
-                <td><a href="../top/index.html">映画サイトへ</a></td>
-            </tr>
-        </table>
-        
-    </form>
-
-    </div>
+    <nav class="nav">
+    <ul id="accordion" class="accordion">
+        <li>
+          <ul class="submenu">
+        <li><a href="admin_page.html" id="add">登録</a></li>
+        <li>
+            <a href="admin_page2.php">映画一覧</a>
+        </li>
+        <li>
+            <a href="admin_reservation.php">予約一覧</a>
+        </li>
+        <li>
+            <a href="../top/index.html">映画サイトへ</a>
+        </li>
+    </ul>
+</nav>
+<img class="main_img" src="../映画画像/top.jpg" alt="">
 </body>
 </html>

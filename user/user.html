@@ -4,12 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="user.css">
 </head>
 <body>
+    <div class="reservation-container">
     <h1>予約画面</h1>
     <form action="user_page.php" method="post">
         <label for="name">名前</label><br>
         <input type="text" id="name" name="name"><br>
+        <br>
+        <label for="email">e-mail</label><br>
+        <input type="text" id="email" name="email"><br>
         <br>
         <label for="movie">映画名</label>
         <select name="movie" id="movie">
@@ -28,8 +33,11 @@
             <option>19:00</option>
             <option>21:00</option>
         </select><br>
-        <input type="submit" name="reservation" value="予約">
+        <br>
+        <button type="submit" name="reservation" value="予約">予約</button><br>
         <input type="hidden" name="mode" value="reservation">
+        <button type="submit" name="cancel" value="キャンセル">キャンセル</button>
         </form>
+    </div>
 </body>
 </html>

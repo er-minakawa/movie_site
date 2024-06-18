@@ -1,18 +1,51 @@
-h1{
-    font-family: M PLUS 1p;
-    font-weight: bold 10;
-    padding: 0 45px;
+
+body {
+    background: #d4cdac;
+    font-family: 'Open Sans', Arial, Helvetica, Sans-serif, Verdana, Tahoma;
 }
+  
+ul {
+    list-style-type: none;
+}
+  
+a {
+    color: #b63b4d;
+    text-decoration: none;
+    text-align: center;
+}
+h1 {
+    color: #FFF;
+    font-size: 24px;
+    font-weight: 400;
+    text-align: center;
+    margin-top: 80px;
+}
+  
+h1 a {
+    color: #c12c42;
+    font-size: 16px;
+}
+
 h1:first-letter {
     font-size: 1.5em;
-    color: #5507ff;
-}
-body{
-    background-color:#FFFFF0;
+    color: #c12c42;
 }
 a:hover{
     color: #5507FF;
 }
 a{
     font-size: 150%;
+}
+.nav ul{
+    margin: 30px 100px 60px;
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+}
+.main_img{
+    display: block;
+    margin: 0 auto;
+    width: 400px;
 }
