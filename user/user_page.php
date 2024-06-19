@@ -12,6 +12,7 @@ if (isset($_POST) ==['reservation']) {
     $user_name = $_POST["name"];
     $email = $_POST["email"];
     $movie = $_POST["movie"];
+    $data  = $_POST["data"];
     $time = $_POST["time"];
 
     try {
@@ -20,13 +21,14 @@ if (isset($_POST) ==['reservation']) {
         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // 予約情報をデータベースに挿入
-        $sql = "INSERT INTO user_data (name,email,movie,time) VALUES (?,?,?,?)";
+        $sql = "INSERT INTO user_data (name,email,movie,date,time) VALUES (?,?,?,?,?)";
         $stmt = $dbh->prepare($sql);
-        $stmt->execute([$user_name,$email,$movie,$time]);
+        $stmt->execute([$user_name,$email,$movie,$data,$time]);
 
         // 予約成功のメッセージを表示
         echo "予約が完了しました。確認メールを送信しました。";
         echo '<p><a href="user.html">予約画面へ戻る</a></p>';
+        echo '<p><a href="../top/index.html">TOPページへ</a></p>';
     } catch (PDOException $e) {
         die("PDO Error:" . $e->getMessage());
     }

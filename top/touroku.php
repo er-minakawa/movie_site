@@ -30,7 +30,7 @@ try{
     if (!empty($input) && !empty($input2) && !empty($name) && !empty($birthday)) {
         register();
         echo "登録完了しました。";
-        echo '<p><a href="index.html"> ログインに進む。</a></p>';
+        echo '<p><a href="login.html"> ログインに進む。</a></p>';
         } 
     }else {
        echo "";

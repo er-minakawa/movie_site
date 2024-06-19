@@ -55,12 +55,15 @@ a{
     font-size: 25px;
 }
 a:hover{
-    color: #f3eda8;
+    color: rgb(230, 90, 90);
+}
+#touroku{
+  background-color: rgba(228, 135, 252, 0.986);
 }
 
-
-
-
+#rogin{
+  background-color: aquamarine;
+}
 
 h2{
     position: relative;
@@ -107,3 +110,9 @@ img {
     padding: 0;
     font-size: 15px;
   }
+.movie{
+  width: 80%;
+  height: 30%;
+  margin: 0 auto;
+  display: block;
+}

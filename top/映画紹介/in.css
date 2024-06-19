@@ -1,3 +1,32 @@
-h1{
-    
-}
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff6f6; /* 薄いピンクの背景色 */
+            color: #4a4a4a; /* テキストの色 */
+            margin: 20px;
+        }
+
+        a {
+            color: #ff66cc; /* リンクの色（ピンク） */
+            text-decoration: none; /* 下線をなくす */
+        }
+
+        a:hover {
+            text-decoration: underline; /* ホバー時に下線を表示 */
+        }
+
+        h1 {
+            color: #ff66cc; /* 見出しの色（ピンク） */
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: 20px;
+        }
